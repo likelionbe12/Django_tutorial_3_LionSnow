@@ -8,6 +8,7 @@
                 <img src="/media/{{ image.image }}" class="card-img-top" alt="{{ image.title }}">
                 <div class="card-body">
                     <h5 class="card-title text-primary">{{ image.title }}</h5>
+
                     <p class="card-text">{{ image.description }}</p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -31,10 +32,20 @@
                 <a href="{% url 'imageapp:image_delete' image.id %}" class="btn btn-danger me-2">
                     <i class="bi bi-trash"></i> 삭제
                 </a>
+                {% else %}          
+                    {% if is_susbcribed %}          
+                    <a href="{% url 'imageapp:toggle_subscribe' image.id %}" class="btn btn-secondary me-2">
+                        <i class="bi bi-bookmark-check-fill"></i> 구독취소 
+                    </a>
+                    {% else %}
+                    <a href="{% url 'imageapp:toggle_subscribe' image.id %}" class="btn btn-secondary me-2">
+                        <i class="bi bi-bookmark"></i> 구독하기
+                    </a>
+                    {% endif %}
                 {% endif %}
                 <a href="{% url 'imageapp:index' %}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left-circle"></i> 목록보기
-                </a>
+                </a>           
             </div>
         </div>
     </div>

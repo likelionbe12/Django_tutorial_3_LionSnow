@@ -10,6 +10,8 @@ class ImagePost(models.Model):
     create_at=models.DateTimeField(auto_now_add=True, verbose_name='작성일')
     update_at = models.DateTimeField(auto_now=True, verbose_name='수정일')
     author=models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='작성자')
+    # 구독
+    subscribers = models.ManyToManyField('auth.User', related_name='subscribed_posts', blank=True, verbose_name='구독자')
 
     class Meta:        
         ordering=['-create_at']
@@ -25,9 +27,16 @@ class ImagePost(models.Model):
         if self.image:
             self.image.delete()
             super().delete( *args, **kwargs)
+    # 구독 관련 메서드
+    def subscribe(self, user):
+        self.subscribers.add(user)
 
-    # 관리자 페이지에 접속해서 이미지를 올리고 지워보겠습니다
-    # image가 어떻게 저장되고 관리되는지 살펴보기
-    # delete도 잘 되는지 확인하기
-    # 2:25분까지
+    def unsubscribe(self, user):
+        self.subscribers.remove(user)
+        
+    def is_subscribed(self, user):
+        return self.subscribers.filter(id=user.id).exists()
+        # return self.subscribers.filter(name=user.name).exists()
+    
+  
 
