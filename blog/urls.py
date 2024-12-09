@@ -17,6 +17,7 @@ urlpatterns = [
     path('post/<int:post_id>/delete', views.post_delete, name='post_delete'), # 포스트 삭제
     # Search
     path('search/', views.search, name='search'),
+    path('search/autocomplete/', views.search_autocomplete,name='search_autocomplete'),
 ]
 
 # 10:50까지 개선사항이나 버그에 대한 아이디어를 피들렛에 댓글로 남겨주세요!

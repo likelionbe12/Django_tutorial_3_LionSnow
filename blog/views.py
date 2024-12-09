@@ -4,7 +4,7 @@ from .forms import CategoryForm, PostForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator
-
+from django.http import JsonResponse
 # Create your views here.
 def index(request):    
     categories = Category.objects.all()
@@ -126,3 +126,25 @@ def search(request):
 
     context = {'searched_posts':page_obj}
     return render(request, 'blog/search.html',context)
+
+def search_autocomplete(request):
+    query= request.GET.get('query', '')
+    # 2글자 이상 query가 전달되었을때 검색이 이루어지도록 함
+    if query and len(query)>=2:
+        posts = Post.objects.filter(
+            Q(title__icontains=query)
+        ).values_list('title', flat=True).distinct()[:5]
+        # 최대 5개의 검색어를 제시함
+        return JsonResponse(
+            {
+                'status':'success',
+                'suggestions':list(posts)
+            }
+        )
+    else:
+        return JsonResponse(
+            {
+                'status':'error',
+                'suggestions':[]
+            }
+        )
