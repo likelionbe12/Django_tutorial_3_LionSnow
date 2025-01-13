@@ -139,8 +139,8 @@
               // Axios를 사용한 GET 요청
               const response = await axios.get('/blog/search/autocomplete/', {
                   params: { query: query }
-              });
-
+              });              
+              console.log(query)
               // 응답 데이터 처리
               const { data } = response;
               if (data.status === 'success' && data.suggestions.length > 0) {
