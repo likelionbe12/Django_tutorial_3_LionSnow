@@ -2,3 +2,4 @@ Django==5.1.3
 pillow==11.0.0
 python-dotenv==1.0.1
 gunicorn
+django-debug-toolbar
