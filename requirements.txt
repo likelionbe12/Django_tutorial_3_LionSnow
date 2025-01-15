@@ -3,3 +3,5 @@ pillow==11.0.0
 python-dotenv==1.0.1
 gunicorn
 django-debug-toolbar
+django-storages
+boto3
