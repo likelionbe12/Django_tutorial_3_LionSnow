@@ -14,6 +14,7 @@
         <div class="col-md-4 mb-4">
             <div class="card">
                 <a href="{% url 'imageapp:image_detail' image.id %}">
+                    <!-- 이미지 경로를 url을 통해서 접근하도록 수정 -->
                 <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ image.title }}</h5>
